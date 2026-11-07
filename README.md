@@ -1,4 +1,4 @@
-# Data Detective 🔎📊
+# Data Detective
 
 **Open-source, offline Agent Skill for CSV quality auditing and exploratory data analysis.** Agent instructions are in [`skills/data-detective/SKILL.md`](skills/data-detective/SKILL.md); the analysis is performed by reproducible Python code, not model-generated numbers.
 
