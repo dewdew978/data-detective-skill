@@ -1,0 +1,215 @@
+{
+  "source_file": "sample.csv",
+  "quality": {
+    "source_file": "sample.csv",
+    "row_count": 5,
+    "column_count": 4,
+    "duplicate_row_count": 1,
+    "malformed_row_count": 0,
+    "malformed_rows": [],
+    "columns": [
+      {
+        "name": "id",
+        "missing_count": 0,
+        "missing_pct": 0.0,
+        "leading_or_trailing_whitespace_count": 0,
+        "observed_types": {
+          "integer": 5
+        },
+        "potential_mixed_types": false,
+        "sample_values": [
+          "1",
+          "2",
+          "3"
+        ]
+      },
+      {
+        "name": "name",
+        "missing_count": 0,
+        "missing_pct": 0.0,
+        "leading_or_trailing_whitespace_count": 1,
+        "observed_types": {
+          "text": 5
+        },
+        "potential_mixed_types": false,
+        "sample_values": [
+          "Alice",
+          "Bob",
+          " Carol "
+        ]
+      },
+      {
+        "name": "age",
+        "missing_count": 2,
+        "missing_pct": 40.0,
+        "leading_or_trailing_whitespace_count": 0,
+        "observed_types": {
+          "integer": 2,
+          "text": 1
+        },
+        "potential_mixed_types": true,
+        "sample_values": [
+          "25",
+          "unknown",
+          "31"
+        ]
+      },
+      {
+        "name": "city",
+        "missing_count": 1,
+        "missing_pct": 20.0,
+        "leading_or_trailing_whitespace_count": 0,
+        "observed_types": {
+          "text": 4
+        },
+        "potential_mixed_types": false,
+        "sample_values": [
+          "Bangkok",
+          "Chiang Mai"
+        ]
+      }
+    ],
+    "notes": [
+      "Missing means empty or whitespace-only; strings such as NA and null are not treated as missing.",
+      "Duplicates are exact full-row matches only and may be legitimate.",
+      "Type detection is heuristic; identifiers and categorical codes may look numeric.",
+      "Only the first 25 malformed row locations are included in the report."
+    ]
+  },
+  "eda": {
+    "sampled_rows": 5,
+    "valid_rows": 5,
+    "sampling_method": "first N valid rows (not random; order bias possible)",
+    "columns_profiled": 4,
+    "columns_skipped": 0,
+    "columns": [
+      {
+        "name": "id",
+        "sampled_nonmissing_count": 5,
+        "kind": "numeric",
+        "min": 1.0,
+        "max": 4.0,
+        "mean": 2.4,
+        "median": 2.0,
+        "std_dev": 1.14018,
+        "q1": 2.0,
+        "q3": 3.0
+      },
+      {
+        "name": "name",
+        "sampled_nonmissing_count": 5,
+        "kind": "categorical_or_text",
+        "distinct_in_sample": 4,
+        "top_values": [
+          {
+            "value": "Bob",
+            "count": 2
+          },
+          {
+            "value": "Alice",
+            "count": 1
+          },
+          {
+            "value": "Carol",
+            "count": 1
+          },
+          {
+            "value": "Dan",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "name": "age",
+        "sampled_nonmissing_count": 3,
+        "kind": "categorical_or_text",
+        "distinct_in_sample": 3,
+        "top_values": [
+          {
+            "value": "25",
+            "count": 1
+          },
+          {
+            "value": "unknown",
+            "count": 1
+          },
+          {
+            "value": "31",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "name": "city",
+        "sampled_nonmissing_count": 4,
+        "kind": "categorical_or_text",
+        "distinct_in_sample": 2,
+        "top_values": [
+          {
+            "value": "Bangkok",
+            "count": 2
+          },
+          {
+            "value": "Chiang Mai",
+            "count": 2
+          }
+        ]
+      }
+    ],
+    "charts": [
+      "charts/column-01.svg",
+      "charts/column-02.svg",
+      "charts/column-03.svg",
+      "charts/column-04.svg"
+    ]
+  },
+  "findings": [
+    {
+      "severity": "review",
+      "code": "exact_duplicates",
+      "message": "1 exact duplicate records detected; verify whether repeated records are expected.",
+      "evidence": {
+        "duplicate_rows": 1
+      }
+    },
+    {
+      "severity": "review",
+      "code": "missing_values",
+      "column": "age",
+      "message": "age: 2 empty values among 5 structurally valid rows.",
+      "evidence": {
+        "missing_count": 2,
+        "valid_rows": 5
+      }
+    },
+    {
+      "severity": "review",
+      "code": "mixed_types",
+      "column": "age",
+      "message": "age: multiple inferred value types; confirm intended schema.",
+      "evidence": {
+        "observed_types": {
+          "integer": 2,
+          "text": 1
+        }
+      }
+    },
+    {
+      "severity": "review",
+      "code": "missing_values",
+      "column": "city",
+      "message": "city: 1 empty values among 5 structurally valid rows.",
+      "evidence": {
+        "missing_count": 1,
+        "valid_rows": 5
+      }
+    }
+  ],
+  "warnings": [
+    "All statistics and charts are descriptive and not causal evidence.",
+    "EDA uses only the first N well-formed rows; results may be biased by row order.",
+    "Numeric-looking identifiers can be classified as numbers; confirm column meaning.",
+    "Reports and charts can expose data values. Review before sharing publicly.",
+    "Input is read-only; no cleaning or imputation is applied."
+  ]
+}
